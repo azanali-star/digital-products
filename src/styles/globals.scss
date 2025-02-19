@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Custom utility classes */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600;
+}
+
+/* Custom components */
+.btn-primary {
+  @apply bg-black text-white px-8 py-3 rounded-full font-semibold 
+         hover:bg-gray-800 transition-colors duration-300 ease-in-out;
+}
+
+.btn-secondary {
+  @apply bg-white text-black px-8 py-3 rounded-full font-semibold 
+         hover:bg-gray-100 transition-colors duration-300 ease-in-out
+         border border-black;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300
+         hover:transform hover:scale-105;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold tracking-tight;
+}
+
+/* Container padding */
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+/* Form elements */
+input, textarea {
+  @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none 
+         focus:ring-2 focus:ring-black focus:border-transparent;
+}
+
+/* Product grid */
+.product-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8;
+}

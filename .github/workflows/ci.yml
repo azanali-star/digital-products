@@ -21,21 +21,20 @@ jobs:
       - name: Install dependencies
         run: npm install
         
+      - name: Build Project
+        run: npm run build
+        
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
+        uses: vercel/action@v21
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: azanali-stars-projects
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./
-          vercel-args: '--prod'
-      
-      - name: Delete Vercel Secrets
-        uses: gliech/create-github-secret-action@v1
-        with:
-          pa_token: ${{ secrets.GITHUB_TOKEN }}
-          secrets: |
-            VERCEL_TOKEN
-            VERCEL_USER_ID
-            VERCEL_PROJECT_ID
-        if: always()
+          github-comment: false
+          
+      - name: Debug Deployment
+        if: failure()
+        run: |
+          echo "Deployment failed. Checking project configuration..."
+          npm run build || echo "Build failed"
+          cat .vercel/project.json || echo "No Vercel project config found"
